@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Animal Image</title>
+    <link rel="stylesheet" href="./src/css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Random Animal Image</h1>
+        <button id="randomButton" onclick="firstStart()">Show Random Animal</button>
+        <div class="imgData">
+            <img id="randomImg" src="" alt="Random Animal" width="300" height="200">
+        </div>
+        <div class="timer">
+            <h1 id="timer">05:00</h1>
+            <div class="btnForTimer">
+                <button id="btnTimer" class="btnTimer" onclick="startTimer()">Start Timer</button>
+                <button id="btnReset" class="btnTimer" onclick="firstStart()">Reset Timer</button>
+            </div>
+        </div>
+    </div>
+        
+    <script src="./src/js/main.js"></script>
+</body>
+
+<script>
+var timerInterval; // Declarar timerInterval fuera de la función startTimer()
+var isTimerRunning = false; // Declarar isTimerRunning fuera de la función startTimer()
+var time = 300; // 5 minutos en segundos
+
+function firstStart() {
+    var button = document.getElementById('btnTimer');
+    isTimerRunning = false;
+    time = 300;
+    clearInterval(timerInterval);
+    button.textContent = 'Start Timer';
+    document.getElementById('btnTimer').style.backgroundColor = 'green';
+    startTimer();
+}
+
+function startTimer() {
+    var timerElement = document.getElementById('timer');
+    var button = document.getElementById('btnTimer');
+    var minutes;
+    var seconds;
+
+    switch (button.textContent) {
+        case 'Start Timer':
+            if (!isTimerRunning) {
+                timerInterval = setInterval(updateTimer, 1000);
+                isTimerRunning = true;
+                button.textContent = 'Pause Timer';
+                document.getElementById('btnTimer').style.backgroundColor = 'orange';
+            }
+            break;
+        case 'Pause Timer':
+            button.disabled = true; // Deshabilita el botón
+            clearInterval(timerInterval);
+            timerElement.textContent += ' - Paused';
+            isTimerRunning = false;
+            button.textContent = 'Resume Timer';
+            document.getElementById('btnTimer').style.backgroundColor = 'skyblue';
+            // Oculta la imagen cuando se pausa el temporizador
+            document.getElementById('randomImg').style.display = 'none';
+            setTimeout(function() {
+                button.disabled = false; // Habilita el botón después de 1 segundo
+            }, 1000);
+            break;
+        case 'Resume Timer':
+            button.disabled = true; // Deshabilita el botón
+            if (!isTimerRunning) {
+                timerInterval = setInterval(updateTimer, 1000);
+                isTimerRunning = true;
+                button.textContent = 'Pause Timer';
+                document.getElementById('btnTimer').style.backgroundColor = 'orange';
+                timerElement.textContent = timerElement.textContent.replace(' - Paused', '');
+                // Muestra la imagen cuando se reanuda el temporizador
+                document.getElementById('randomImg').style.display = 'block';
+            }
+            setTimeout(function() {
+                button.disabled = false; // Habilita el botón después de 1 segundo
+            }, 1000);
+            break;
+        case 'Again':
+            clearInterval(timerInterval);
+            isTimerRunning = false;
+            button.textContent = 'Start Timer';
+            document.getElementById('btnTimer').style.backgroundColor = 'green';
+            time = 300;
+            updateTimer();
+            break;
+    }
+
+    function updateTimer() {
+        minutes = Math.floor(time / 60);
+        seconds = time % 60;
+
+        // Agregar ceros a la izquierda si es necesario
+        minutes = minutes < 10 ? '0' + minutes : minutes;
+        seconds = seconds < 10 ? '0' + seconds : seconds;
+
+        timerElement.textContent = minutes + ':' + seconds;
+
+        if (time <= 0) {
+            clearInterval(timerInterval);
+            timerElement.textContent = "¡Times is up!";
+            button.textContent = 'Again';
+            isTimerRunning = false;
+        } else {
+            time--;
+        }
+    }
+}
+</script>
+
+</html>
