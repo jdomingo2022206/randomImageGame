@@ -59,10 +59,29 @@
             /*display: none; /* Inicialmente ocultar la imagen */
         }
 
+        img#randomImg {
+        max-width: 550px;  /* Ancho máximo */
+        max-height: 550px; /* Altura máxima */
+        }
+
+        #cartoonButton {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #27916c;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        #cartoonButton:hover {
+            background-color: #f1fdf9;
+        }
+
         button {
             padding: 10px 20px;
             font-size: 16px;
-            background-color: #007bff;
+            background-color: #0099ff;
             color: #fff;
             border: none;
             cursor: pointer;
@@ -103,10 +122,11 @@
 <body>
     <div class="container">
         <h1>Can you build that???</h1>
-        <button id="randomButton" onclick="firstStart()">Start Game</button>
+        <button id="cartoonButton" onclick="firstStart()"">Chose your character</button>
+        <button id="randomButton" onclick="firstStart()">All to One</button>
         <p id="msjInfo">Click the button to show a random animal image</p>
         <div class="imgData">
-            <img id="randomImg" src="https://images.emojiterra.com/google/noto-emoji/unicode-15/animated/1f648.gif" alt="Random Animal" width="600" height="400">
+            <img id="randomImg" src="https://images.emojiterra.com/google/noto-emoji/unicode-15/animated/1f648.gif" alt="Random Animal" width="550" height="550">
         </div>
         <div class="timer hide">
             <h1 id="timer">05:00</h1>
@@ -242,12 +262,39 @@
                 /*Owl*/ 'https://img.freepik.com/premium-photo/adorable-owl-character_398492-14698.jpg'
             ];
 
+            const cartoonImages = [
+                /*Tom and Jerry*/'https://miro.medium.com/v2/resize:fit:1358/1*BgTmCUE1qlphPoEQCgFSFQ.jpeg',
+                /*Pink Panther*/'https://i.pinimg.com/originals/fd/48/84/fd488421e95de6b7ac9fa013bb742bed.jpg',
+                /*Fishtronaut*/ 'https://i.ytimg.com/vi/2la-BdYj8a0/maxresdefault.jpg',
+                /*Carebears*/ 'https://s.yimg.com/ny/api/res/1.2/wnU7aTzVen7b5EyaHbat1Q--/YXBwaWQ9aGlnaGxhbmRlcjt3PTY0MDtoPTUwNg--/https://s.yimg.com/uu/api/res/1.2/Kqo1k_.05IEauI0PxhAAzw--~B/aD04MDk7dz0xMDI0O2FwcGlkPXl0YWNoeW9u/http://l.yimg.com/os/423/2012/05/25/CB-Mass-Refresh-2007-2008-2D-jpg_172353.jpg',
+                /*Adventure Time*/ 'https://media.wired.com/photos/5932661626780e6c04d2b642/master/pass/AdventureTime.jpg',
+                /*Gumball*/ 'https://images.thedirect.com/media/photos/amzm.png',
+                /*Doki*/ 'https://i.ytimg.com/vi/6B7VqsdCIHg/maxresdefault.jpg',
+                /*My big friend*/ 'https://blogger.googleusercontent.com/img/a/AVvXsEgP99I7LCwpLCL48cB3QcHKyHFe2pxfuE4tfyoa6frbG9Gg9fS93KD4DtGPnj1izxGo_ohmYjGYG4bCcvGAe1ALMddjP9hFLvGcceup1Ii5_ULjzzuSV-5zwt_oTJZPWsAUNv6EzlKORRxMn8Nuys7pckXxSqPKorLE2lHurDdFpdGbz1pxheABJse60g=w640-h360-rw',
+                /*Bugs Bunny*/ 'https://i.pinimg.com/736x/e2/a0/95/e2a0950161f3cdec04edc4764f585fd0.jpg',
+                /*looney Tunes*/ 'https://cdn.vox-cdn.com/thumbor/GUAyDRW2rN6V1KZPHCN5kVN7lbw=/34x6:1884x1076/1200x675/filters:focal(807x387:1113x693)/cdn.vox-cdn.com/uploads/chorus_image/image/70666233/looney_tunes.0.jpg',
+                /*Simpsons*/ 'https://m.media-amazon.com/images/M/MV5BYjFkMTlkYWUtZWFhNy00M2FmLThiOTYtYTRiYjVlZWYxNmJkXkEyXkFqcGdeQXVyNTAyODkwOQ@@._V1_FMjpg_UX1000_.jpg',
+                /*Mickey Mouse*/ 'https://rukminim2.flixcart.com/image/850/1000/poster/a/n/q/mickey-mouse-and-friends-poster-cartoon00084-small-original-imae7s48h6dftcjj.jpeg?q=90&crop=false',
+                /*We bare bears*/ 'https://i.pinimg.com/736x/3f/67/77/3f6777f45294d45adcfa7af553eddc2e.jpg',
+                /*Teen Titans*/ 'https://i.pinimg.com/originals/5c/d8/7e/5cd87e4c37aed8e2dc0fa49e53b48fab.png',
+                /*Scooby Doo*/ 'https://people.com/thmb/JjpTGHByfnMAsz-AhoEDik1b8ZM=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc():focal(764x185:766x187)/scooby-doo-d1a4aeef67b14374bd46c0eeb3aa0470.jpg',
+                // /*Owl*/ ''
+            ];
+
             const randomButton = document.getElementById('randomButton');
+            const cartoonButton = document.getElementById('cartoonButton');
             const randomImg = document.getElementById('randomImg');
 
             randomButton.addEventListener('click', function() {
                 const randomIndex = Math.floor(Math.random() * animalImages.length);
                 const randomImageUrl = animalImages[randomIndex];
+                randomImg.src = randomImageUrl;
+                randomImg.style.display = 'block'; // Mostrar la imagen
+            });
+
+            cartoonButton.addEventListener('click', function() {
+                const randomIndex = Math.floor(Math.random() * cartoonImages.length);
+                const randomImageUrl = cartoonImages[randomIndex];
                 randomImg.src = randomImageUrl;
                 randomImg.style.display = 'block'; // Mostrar la imagen
             });
