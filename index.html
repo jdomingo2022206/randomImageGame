@@ -7,19 +7,37 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            color : #fff;
-            background-color: #131516;  
+            color : #e8e6e3;
+            /* background-color: #202324;   */
+            background-color: #131516;
+
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
-        .container {
+        .container {         
             text-align: center;
-            margin-top: 50px;
+            margin-top: 0px;
+            background-color: #202324;
+            /* background-color: #131516; */
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         .imgData {
-            margin-top: 20px;
+            
             display: grid;
-            grid-template-columns: 33% 33% 33%;
+            /* grid-template-columns: 33% 33% 33%; */
+        }
+
+        .imgData img {
+            
+            /* width: 80%; Utilizar todo el ancho disponible */
+            height: auto;
         }
 
         .hide {
@@ -88,7 +106,7 @@
         <button id="randomButton" onclick="firstStart()">Start Game</button>
         <p id="msjInfo">Click the button to show a random animal image</p>
         <div class="imgData">
-            <img id="randomImg" src="https://images.emojiterra.com/google/noto-emoji/unicode-15/animated/1f648.gif" alt="Random Animal" width="300" height="200">
+            <img id="randomImg" src="https://images.emojiterra.com/google/noto-emoji/unicode-15/animated/1f648.gif" alt="Random Animal" width="600" height="400">
         </div>
         <div class="timer hide">
             <h1 id="timer">05:00</h1>
@@ -122,6 +140,7 @@
 
         function startTimer() {
             var urlMonkey = 'https://images.emojiterra.com/google/noto-emoji/unicode-15/animated/1f648.gif';
+            var urlPuased = 'https://cdn.dribbble.com/users/34556/screenshots/1680799/play.gif';
             var timerElement = document.getElementById('timer');
             var button = document.getElementById('btnTimer');
             var msjInfo = document.getElementById('msjInfo');
@@ -145,7 +164,7 @@
                     timerElement.textContent += ' - Paused';
                     isTimerRunning = false;
                     prevImageSrc = document.getElementById('randomImg').src;
-                    randomImg.setAttribute('src', urlMonkey);
+                    randomImg.setAttribute('src', urlPuased);
                     button.textContent = 'Resume Timer';
                     document.getElementById('btnTimer').style.backgroundColor = 'skyblue';
                     // Oculta la imagen cuando se pausa el temporizador
